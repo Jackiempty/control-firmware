@@ -2394,7 +2394,7 @@ typedef struct {
  * @retval Value between Min_Data=0 and Max_Data=18
  */
 #define __LL_ADC_CHANNEL_TO_DECIMAL_NB(__CHANNEL__) \
-  (((__CHANNEL__)&ADC_CHANNEL_ID_NUMBER_MASK) >>    \
+  (((__CHANNEL__) & ADC_CHANNEL_ID_NUMBER_MASK) >>  \
    ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS)
 
 /**
@@ -2435,14 +2435,15 @@ typedef struct {
  *             comparison with internal channel parameter to be done
  *             using helper macro @ref __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL().
  */
-#define __LL_ADC_DECIMAL_NB_TO_CHANNEL(__DECIMAL_NB__)                        \
-  (((__DECIMAL_NB__) <= 9UL)                                                  \
-       ? (((__DECIMAL_NB__) << ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS) |         \
-          (ADC_SMPR2_REGOFFSET | (((uint32_t)(3UL * (__DECIMAL_NB__)))        \
-                                  << ADC_CHANNEL_SMPx_BITOFFSET_POS)))        \
-       : (((__DECIMAL_NB__) << ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS) |         \
-          (ADC_SMPR1_REGOFFSET | (((uint32_t)(3UL * ((__DECIMAL_NB__)-10UL))) \
-                                  << ADC_CHANNEL_SMPx_BITOFFSET_POS))))
+#define __LL_ADC_DECIMAL_NB_TO_CHANNEL(__DECIMAL_NB__)                 \
+  (((__DECIMAL_NB__) <= 9UL)                                           \
+       ? (((__DECIMAL_NB__) << ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS) |  \
+          (ADC_SMPR2_REGOFFSET | (((uint32_t)(3UL * (__DECIMAL_NB__))) \
+                                  << ADC_CHANNEL_SMPx_BITOFFSET_POS))) \
+       : (((__DECIMAL_NB__) << ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS) |  \
+          (ADC_SMPR1_REGOFFSET |                                       \
+           (((uint32_t)(3UL * ((__DECIMAL_NB__) - 10UL)))              \
+            << ADC_CHANNEL_SMPx_BITOFFSET_POS))))
 
 /**
  * @brief  Helper macro to determine whether the selected channel
@@ -2494,7 +2495,7 @@ typedef struct {
  * channel corresponds to a parameter definition of a ADC internal channel.
  */
 #define __LL_ADC_IS_CHANNEL_INTERNAL(__CHANNEL__) \
-  (((__CHANNEL__)&ADC_CHANNEL_ID_INTERNAL_CH_MASK) != 0UL)
+  (((__CHANNEL__) & ADC_CHANNEL_ID_INTERNAL_CH_MASK) != 0UL)
 
 /**
  * @brief  Helper macro to convert a channel defined from parameter
@@ -2713,14 +2714,14 @@ typedef struct {
  * channel is shared between temperature sensor and Vbat, only 1 measurement
  * path must be enabled.
  */
-#define __LL_ADC_ANALOGWD_CHANNEL_GROUP(__CHANNEL__, __GROUP__)  \
-  (((__GROUP__) == LL_ADC_GROUP_REGULAR)                         \
-       ? (((__CHANNEL__)&ADC_CHANNEL_ID_MASK) | ADC_CR1_AWDEN |  \
-          ADC_CR1_AWDSGL)                                        \
-   : ((__GROUP__) == LL_ADC_GROUP_INJECTED)                      \
-       ? (((__CHANNEL__)&ADC_CHANNEL_ID_MASK) | ADC_CR1_JAWDEN | \
-          ADC_CR1_AWDSGL)                                        \
-       : (((__CHANNEL__)&ADC_CHANNEL_ID_MASK) | ADC_CR1_JAWDEN | \
+#define __LL_ADC_ANALOGWD_CHANNEL_GROUP(__CHANNEL__, __GROUP__)    \
+  (((__GROUP__) == LL_ADC_GROUP_REGULAR)                           \
+       ? (((__CHANNEL__) & ADC_CHANNEL_ID_MASK) | ADC_CR1_AWDEN |  \
+          ADC_CR1_AWDSGL)                                          \
+   : ((__GROUP__) == LL_ADC_GROUP_INJECTED)                        \
+       ? (((__CHANNEL__) & ADC_CHANNEL_ID_MASK) | ADC_CR1_JAWDEN | \
+          ADC_CR1_AWDSGL)                                          \
+       : (((__CHANNEL__) & ADC_CHANNEL_ID_MASK) | ADC_CR1_JAWDEN | \
           ADC_CR1_AWDEN | ADC_CR1_AWDSGL))
 
 /**
@@ -2994,10 +2995,10 @@ typedef struct {
                                                    LL_ADC_RESOLUTION_12B) *    \
                   (__VREFANALOG_VOLTAGE__)) /                                  \
                  TEMPSENSOR_CAL_VREFANALOG) -                                  \
-       (int32_t)*TEMPSENSOR_CAL1_ADDR)) *                                      \
+       (int32_t) * TEMPSENSOR_CAL1_ADDR)) *                                    \
      (int32_t)(TEMPSENSOR_CAL2_TEMP - TEMPSENSOR_CAL1_TEMP)) /                 \
-    (int32_t)((int32_t)*TEMPSENSOR_CAL2_ADDR -                                 \
-              (int32_t)*TEMPSENSOR_CAL1_ADDR)) +                               \
+    (int32_t)((int32_t) * TEMPSENSOR_CAL2_ADDR -                               \
+              (int32_t) * TEMPSENSOR_CAL1_ADDR)) +                             \
    TEMPSENSOR_CAL1_TEMP)
 #endif
 

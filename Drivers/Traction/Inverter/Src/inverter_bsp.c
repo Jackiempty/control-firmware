@@ -122,6 +122,15 @@ void inverter_bsp_interrupt(inverter_t *instance, void *arg1, void *arg2) {
          * 6,7    Delta Resolver Filtered
          */
         instance->speed = *(uint16_t *)&rx_data[2];
+      } else if (rx_id == 0x06 + instance->hw_id) {
+        /* Motor Current Information
+         * Byte#  Description
+         * 0,1    Phase A Current
+         * 2,3    Phase B Current
+         * 4,5    Phase C Current
+         * 6,7    DC Current
+         */
+        instance->current = *(uint16_t *)&rx_data[6];
       } else if (rx_id == 0x07 + instance->hw_id) {
         /* Voltage Information
          * Byte#  Description
@@ -131,6 +140,14 @@ void inverter_bsp_interrupt(inverter_t *instance, void *arg1, void *arg2) {
          * 6,7    VBC_Vq_Voltage High Voltage
          */
         instance->voltage = *(uint16_t *)&rx_data[0];
+      } else if (rx_id == 0x0A + instance->hw_id) {
+        /* Motor Status Information
+         * Byte#  Description
+         * 0,1    VSM State
+         * 2      Inverter State
+         */
+        ((pm100_t *)(&instance->priv_pool))->fault =
+            (*(uint16_t *)&rx_data[0] == 7);
       }
       break;
     }

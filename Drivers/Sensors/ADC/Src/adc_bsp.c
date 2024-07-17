@@ -19,7 +19,7 @@ Revision: $Rev: 2024.12$
 
 extern ADC_HandleTypeDef hadc1;
 
-static uint32_t dma_buffer[DMA_CHANNEL];
+static uint16_t dma_buffer[DMA_CHANNEL];
 
 void adc_bsp_start() {
   if (HAL_ADC_Start_DMA(&hadc1, (uint32_t *)dma_buffer, DMA_CHANNEL) !=
@@ -27,10 +27,11 @@ void adc_bsp_start() {
     while (1)
       ;
   }
+  HAL_Delay(500);
 }
 
 void adc_bsp_set_buffer_pos(adc_t *adc, size_t pos) {
-  adc->buffer_ptr = (uint32_t *)(dma_buffer + (pos << 4));
+  adc->buffer_ptr = &dma_buffer[pos];
 }
 
 #endif

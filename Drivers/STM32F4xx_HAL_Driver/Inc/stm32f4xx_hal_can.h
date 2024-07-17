@@ -716,22 +716,22 @@ typedef void (*pCAN_CallbackTypeDef)(
  *         This parameter can be one of @arg CAN_flags
  * @retval The state of __FLAG__ (TRUE or FALSE).
  */
-#define __HAL_CAN_GET_FLAG(__HANDLE__, __FLAG__)                           \
-  ((((__FLAG__) >> 8U) == 5U)   ? ((((__HANDLE__)->Instance->TSR) &        \
-                                  (1U << ((__FLAG__)&CAN_FLAG_MASK))) == \
-                                 (1U << ((__FLAG__)&CAN_FLAG_MASK)))     \
-   : (((__FLAG__) >> 8U) == 2U) ? ((((__HANDLE__)->Instance->RF0R) &       \
-                                    (1U << ((__FLAG__)&CAN_FLAG_MASK))) == \
-                                   (1U << ((__FLAG__)&CAN_FLAG_MASK)))     \
-   : (((__FLAG__) >> 8U) == 4U) ? ((((__HANDLE__)->Instance->RF1R) &       \
-                                    (1U << ((__FLAG__)&CAN_FLAG_MASK))) == \
-                                   (1U << ((__FLAG__)&CAN_FLAG_MASK)))     \
-   : (((__FLAG__) >> 8U) == 1U) ? ((((__HANDLE__)->Instance->MSR) &        \
-                                    (1U << ((__FLAG__)&CAN_FLAG_MASK))) == \
-                                   (1U << ((__FLAG__)&CAN_FLAG_MASK)))     \
-   : (((__FLAG__) >> 8U) == 3U) ? ((((__HANDLE__)->Instance->ESR) &        \
-                                    (1U << ((__FLAG__)&CAN_FLAG_MASK))) == \
-                                   (1U << ((__FLAG__)&CAN_FLAG_MASK)))     \
+#define __HAL_CAN_GET_FLAG(__HANDLE__, __FLAG__)                             \
+  ((((__FLAG__) >> 8U) == 5U)   ? ((((__HANDLE__)->Instance->TSR) &          \
+                                  (1U << ((__FLAG__) & CAN_FLAG_MASK))) == \
+                                 (1U << ((__FLAG__) & CAN_FLAG_MASK)))     \
+   : (((__FLAG__) >> 8U) == 2U) ? ((((__HANDLE__)->Instance->RF0R) &         \
+                                    (1U << ((__FLAG__) & CAN_FLAG_MASK))) == \
+                                   (1U << ((__FLAG__) & CAN_FLAG_MASK)))     \
+   : (((__FLAG__) >> 8U) == 4U) ? ((((__HANDLE__)->Instance->RF1R) &         \
+                                    (1U << ((__FLAG__) & CAN_FLAG_MASK))) == \
+                                   (1U << ((__FLAG__) & CAN_FLAG_MASK)))     \
+   : (((__FLAG__) >> 8U) == 1U) ? ((((__HANDLE__)->Instance->MSR) &          \
+                                    (1U << ((__FLAG__) & CAN_FLAG_MASK))) == \
+                                   (1U << ((__FLAG__) & CAN_FLAG_MASK)))     \
+   : (((__FLAG__) >> 8U) == 3U) ? ((((__HANDLE__)->Instance->ESR) &          \
+                                    (1U << ((__FLAG__) & CAN_FLAG_MASK))) == \
+                                   (1U << ((__FLAG__) & CAN_FLAG_MASK)))     \
                                 : 0U)
 
 /** @brief  Clear the specified CAN pending flag.
@@ -758,16 +758,16 @@ typedef void (*pCAN_CallbackTypeDef)(
  *            @arg CAN_FLAG_SLAKI: Sleep acknowledge Interrupt Flag
  * @retval None
  */
-#define __HAL_CAN_CLEAR_FLAG(__HANDLE__, __FLAG__)                             \
-  ((((__FLAG__) >> 8U) == 5U)                                                  \
-       ? (((__HANDLE__)->Instance->TSR) = (1U << ((__FLAG__)&CAN_FLAG_MASK)))  \
-   : (((__FLAG__) >> 8U) == 2U)                                                \
-       ? (((__HANDLE__)->Instance->RF0R) = (1U << ((__FLAG__)&CAN_FLAG_MASK))) \
-   : (((__FLAG__) >> 8U) == 4U)                                                \
-       ? (((__HANDLE__)->Instance->RF1R) = (1U << ((__FLAG__)&CAN_FLAG_MASK))) \
-   : (((__FLAG__) >> 8U) == 1U)                                                \
-       ? (((__HANDLE__)->Instance->MSR) = (1U << ((__FLAG__)&CAN_FLAG_MASK)))  \
-       : 0U)
+#define __HAL_CAN_CLEAR_FLAG(__HANDLE__, __FLAG__)                           \
+  ((((__FLAG__) >> 8U) == 5U)   ? (((__HANDLE__)->Instance->TSR) =           \
+                                     (1U << ((__FLAG__) & CAN_FLAG_MASK))) \
+   : (((__FLAG__) >> 8U) == 2U) ? (((__HANDLE__)->Instance->RF0R) =          \
+                                       (1U << ((__FLAG__) & CAN_FLAG_MASK))) \
+   : (((__FLAG__) >> 8U) == 4U) ? (((__HANDLE__)->Instance->RF1R) =          \
+                                       (1U << ((__FLAG__) & CAN_FLAG_MASK))) \
+   : (((__FLAG__) >> 8U) == 1U) ? (((__HANDLE__)->Instance->MSR) =           \
+                                       (1U << ((__FLAG__) & CAN_FLAG_MASK))) \
+                                : 0U)
 
 /**
  * @}

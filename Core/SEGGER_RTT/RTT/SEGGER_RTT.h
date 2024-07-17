@@ -448,12 +448,12 @@ unsigned SEGGER_RTT_GetBytesInBuffer(unsigned BufferIndex);
 //
 // Function macro for performance optimization
 //
-#define SEGGER_RTT_HASDATA(n)                                    \
-  (((SEGGER_RTT_BUFFER_DOWN*)((uintptr_t)&_SEGGER_RTT.aDown[n] + \
-                              SEGGER_RTT_UNCACHED_OFF))          \
-       ->WrOff -                                                 \
-   ((SEGGER_RTT_BUFFER_DOWN*)((uintptr_t)&_SEGGER_RTT.aDown[n] + \
-                              SEGGER_RTT_UNCACHED_OFF))          \
+#define SEGGER_RTT_HASDATA(n)                                                  \
+  (((SEGGER_RTT_BUFFER_DOWN*)((uintptr_t) &                                    \
+                              _SEGGER_RTT.aDown[n] + SEGGER_RTT_UNCACHED_OFF)) \
+       ->WrOff -                                                               \
+   ((SEGGER_RTT_BUFFER_DOWN*)((uintptr_t) &                                    \
+                              _SEGGER_RTT.aDown[n] + SEGGER_RTT_UNCACHED_OFF)) \
        ->RdOff)
 
 #if RTT_USE_ASM
@@ -476,12 +476,12 @@ unsigned SEGGER_RTT_WriteDownBufferNoLock(unsigned BufferIndex,
                                           const void* pBuffer,
                                           unsigned NumBytes);
 
-#define SEGGER_RTT_HASDATA_UP(n)                             \
-  (((SEGGER_RTT_BUFFER_UP*)((uintptr_t)&_SEGGER_RTT.aUp[n] + \
-                            SEGGER_RTT_UNCACHED_OFF))        \
-       ->WrOff -                                             \
-   ((SEGGER_RTT_BUFFER_UP*)((uintptr_t)&_SEGGER_RTT.aUp[n] + \
-                            SEGGER_RTT_UNCACHED_OFF))        \
+#define SEGGER_RTT_HASDATA_UP(n)                                           \
+  (((SEGGER_RTT_BUFFER_UP*)((uintptr_t) &                                  \
+                            _SEGGER_RTT.aUp[n] + SEGGER_RTT_UNCACHED_OFF)) \
+       ->WrOff -                                                           \
+   ((SEGGER_RTT_BUFFER_UP*)((uintptr_t) &                                  \
+                            _SEGGER_RTT.aUp[n] + SEGGER_RTT_UNCACHED_OFF)) \
        ->RdOff)  // Access uncached to make sure we see changes made by the
                  // J-Link side and all of our changes go into HW directly
 

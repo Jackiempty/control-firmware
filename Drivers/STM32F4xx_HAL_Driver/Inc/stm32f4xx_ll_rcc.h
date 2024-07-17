@@ -4410,7 +4410,7 @@ typedef struct {
  */
 #define __LL_RCC_CALC_HCLK_FREQ(__SYSCLKFREQ__, __AHBPRESCALER__) \
   ((__SYSCLKFREQ__) >>                                            \
-   AHBPrescTable[((__AHBPRESCALER__)&RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos])
+   AHBPrescTable[((__AHBPRESCALER__) & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos])
 
 /**
  * @brief  Helper macro to calculate the PCLK1 frequency (ABP1)

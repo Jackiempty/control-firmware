@@ -990,7 +990,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef* hadc);
  * @retval None
  */
 #define ADC_SQR3_RK(_CHANNELNB_, _RANKNB_) \
-  (((uint32_t)((uint16_t)(_CHANNELNB_))) << (5U * ((_RANKNB_)-1U)))
+  (((uint32_t)((uint16_t)(_CHANNELNB_))) << (5U * ((_RANKNB_) - 1U)))
 
 /**
  * @brief  Set the selected regular channel rank for rank between 7 and 12.
@@ -999,7 +999,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef* hadc);
  * @retval None
  */
 #define ADC_SQR2_RK(_CHANNELNB_, _RANKNB_) \
-  (((uint32_t)((uint16_t)(_CHANNELNB_))) << (5U * ((_RANKNB_)-7U)))
+  (((uint32_t)((uint16_t)(_CHANNELNB_))) << (5U * ((_RANKNB_) - 7U)))
 
 /**
  * @brief  Set the selected regular channel rank for rank between 13 and 16.
@@ -1008,7 +1008,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef* hadc);
  * @retval None
  */
 #define ADC_SQR1_RK(_CHANNELNB_, _RANKNB_) \
-  (((uint32_t)((uint16_t)(_CHANNELNB_))) << (5U * ((_RANKNB_)-13U)))
+  (((uint32_t)((uint16_t)(_CHANNELNB_))) << (5U * ((_RANKNB_) - 13U)))
 
 /**
  * @brief  Enable ADC continuous conversion mode.
@@ -1024,7 +1024,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef* hadc);
  * @retval None
  */
 #define ADC_CR1_DISCONTINUOUS(_NBR_DISCONTINUOUSCONV_) \
-  (((_NBR_DISCONTINUOUSCONV_)-1U) << ADC_CR1_DISCNUM_Pos)
+  (((_NBR_DISCONTINUOUSCONV_) - 1U) << ADC_CR1_DISCNUM_Pos)
 
 /**
  * @brief  Enable ADC scan mode.

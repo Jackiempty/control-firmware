@@ -2008,8 +2008,9 @@ typedef void (*pTIM_CallbackTypeDef)(
    ((__BASE__) == TIM_DMABASE_CCR2) || ((__BASE__) == TIM_DMABASE_CCR3) ||   \
    ((__BASE__) == TIM_DMABASE_CCR4) || ((__BASE__) == TIM_DMABASE_BDTR))
 
-#define IS_TIM_EVENT_SOURCE(__SOURCE__) \
-  ((((__SOURCE__)&0xFFFFFF00U) == 0x00000000U) && ((__SOURCE__) != 0x00000000U))
+#define IS_TIM_EVENT_SOURCE(__SOURCE__)             \
+  ((((__SOURCE__) & 0xFFFFFF00U) == 0x00000000U) && \
+   ((__SOURCE__) != 0x00000000U))
 
 #define IS_TIM_COUNTER_MODE(__MODE__)                \
   (((__MODE__) == TIM_COUNTERMODE_UP) ||             \
@@ -2073,8 +2074,9 @@ typedef void (*pTIM_CallbackTypeDef)(
    ((__MODE__) == TIM_ENCODERMODE_TI2) || \
    ((__MODE__) == TIM_ENCODERMODE_TI12))
 
-#define IS_TIM_DMA_SOURCE(__SOURCE__) \
-  ((((__SOURCE__)&0xFFFF80FFU) == 0x00000000U) && ((__SOURCE__) != 0x00000000U))
+#define IS_TIM_DMA_SOURCE(__SOURCE__)               \
+  ((((__SOURCE__) & 0xFFFF80FFU) == 0x00000000U) && \
+   ((__SOURCE__) != 0x00000000U))
 
 #define IS_TIM_CHANNELS(__CHANNEL__)                                       \
   (((__CHANNEL__) == TIM_CHANNEL_1) || ((__CHANNEL__) == TIM_CHANNEL_2) || \

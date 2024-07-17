@@ -23,9 +23,17 @@
 #include "main.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "SEGGER_RTT.h"
 #include "config.h"
+#include "events.h"
+#include "gnss.h"
 #include "imu.h"
 #include "inverter.h"
+#include "steering.h"
+#include "stm32f4xx_hal_uart.h"
+#include "tx_api.h"
+#include "wheel.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,7 +53,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+extern TX_EVENT_FLAGS_GROUP event_flags;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -66,6 +74,8 @@ extern DMA_HandleTypeDef hdma_sdio_tx;
 extern SD_HandleTypeDef hsd;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
+extern DMA_HandleTypeDef hdma_usart1_rx;
+extern UART_HandleTypeDef huart1;
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
 extern TIM_HandleTypeDef htim1;
 
@@ -161,6 +171,32 @@ void DebugMon_Handler(void) {
 /******************************************************************************/
 
 /**
+ * @brief This function handles EXTI line3 interrupt.
+ */
+void EXTI3_IRQHandler(void) {
+  /* USER CODE BEGIN EXTI3_IRQn 0 */
+
+  /* USER CODE END EXTI3_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(REC_INPUT_Pin);
+  /* USER CODE BEGIN EXTI3_IRQn 1 */
+
+  /* USER CODE END EXTI3_IRQn 1 */
+}
+
+/**
+ * @brief This function handles EXTI line4 interrupt.
+ */
+void EXTI4_IRQHandler(void) {
+  /* USER CODE BEGIN EXTI4_IRQn 0 */
+
+  /* USER CODE END EXTI4_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(PRECHARGE_INPUT_Pin);
+  /* USER CODE BEGIN EXTI4_IRQn 1 */
+
+  /* USER CODE END EXTI4_IRQn 1 */
+}
+
+/**
  * @brief This function handles CAN1 TX interrupts.
  */
 void CAN1_TX_IRQHandler(void) {
@@ -227,6 +263,19 @@ void TIM4_IRQHandler(void) {
 }
 
 /**
+ * @brief This function handles USART1 global interrupt.
+ */
+void USART1_IRQHandler(void) {
+  /* USER CODE BEGIN USART1_IRQn 0 */
+
+  /* USER CODE END USART1_IRQn 0 */
+  HAL_UART_IRQHandler(&huart1);
+  /* USER CODE BEGIN USART1_IRQn 1 */
+
+  /* USER CODE END USART1_IRQn 1 */
+}
+
+/**
  * @brief This function handles SDIO global interrupt.
  */
 void SDIO_IRQHandler(void) {
@@ -250,6 +299,19 @@ void DMA2_Stream0_IRQHandler(void) {
   /* USER CODE BEGIN DMA2_Stream0_IRQn 1 */
 
   /* USER CODE END DMA2_Stream0_IRQn 1 */
+}
+
+/**
+ * @brief This function handles DMA2 stream2 global interrupt.
+ */
+void DMA2_Stream2_IRQHandler(void) {
+  /* USER CODE BEGIN DMA2_Stream2_IRQn 0 */
+
+  /* USER CODE END DMA2_Stream2_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart1_rx);
+  /* USER CODE BEGIN DMA2_Stream2_IRQn 1 */
+
+  /* USER CODE END DMA2_Stream2_IRQn 1 */
 }
 
 /**
@@ -311,7 +373,60 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
   inverter_bsp_interrupt(inverter_R, &rx_header, rx_data);
   inverter_bsp_interrupt(inverter_L, &rx_header, rx_data);
 #endif
+
+#if STEERING_ENABLE
+  static steering_t *steering = NULL;
+  if (!steering) steering = open_steering_instance(0);
+  steering_bsp_interrupt(steering, &rx_header, rx_data);
+#endif
 }
 
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {}
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
+#if WHEEL_ENABLE
+  static wheel_t *fl_wheel = NULL, *fr_wheel = NULL, *rl_wheel = NULL,
+                 *rr_wheel = NULL;
+  if (!fl_wheel) fl_wheel = open_wheel_instance(0);
+  if (!fr_wheel) fr_wheel = open_wheel_instance(1);
+  if (!rl_wheel) rl_wheel = open_wheel_instance(2);
+  if (!rr_wheel) rr_wheel = open_wheel_instance(3);
+
+  wheel_bsp_interrupt(fl_wheel, htim);
+  wheel_bsp_interrupt(fr_wheel, htim);
+  wheel_bsp_interrupt(rl_wheel, htim);
+  wheel_bsp_interrupt(rr_wheel, htim);
+#endif
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+  if (GPIO_Pin == REC_INPUT_Pin) {
+    static uint32_t last_time = 0;
+    uint32_t now = HAL_GetTick();
+    if (now - last_time < 100) return;
+    last_time = now;
+
+    ULONG ev_flags = 0;
+    tx_event_flags_get(&event_flags, EVENT_BIT(EVENT_LOGGING), TX_OR, &ev_flags,
+                       TX_NO_WAIT);
+    if (ev_flags & EVENT_BIT(EVENT_LOGGING))
+      tx_event_flags_set(&event_flags, ~EVENT_BIT(EVENT_LOGGING), TX_AND);
+    else
+      tx_event_flags_set(&event_flags, EVENT_BIT(EVENT_LOGGING), TX_OR);
+  } else if (GPIO_Pin == PRECHARGE_INPUT_Pin) {
+    uint8_t state =
+        HAL_GPIO_ReadPin(PRECHARGE_INPUT_GPIO_Port, PRECHARGE_INPUT_Pin);
+    if (state == GPIO_PIN_SET)
+      tx_event_flags_set(&event_flags, EVENT_BIT(EVENT_PRECHARGE), TX_OR);
+    else
+      tx_event_flags_set(&event_flags, ~EVENT_BIT(EVENT_PRECHARGE), TX_AND);
+    HAL_GPIO_WritePin(PRECHARGE_OUTPUT_GPIO_Port, PRECHARGE_OUTPUT_Pin, state);
+  }
+}
+
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t size) {
+#if GNSS_ENABLE
+  static gnss_t *gnss = NULL;
+  if (!gnss) gnss = open_gnss_instance(0);
+  gnss_bsp_interrupt(gnss, huart->pRxBuffPtr, size);
+#endif
+}
 /* USER CODE END 1 */

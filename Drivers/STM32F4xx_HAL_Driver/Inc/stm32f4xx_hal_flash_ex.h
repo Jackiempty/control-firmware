@@ -1228,66 +1228,66 @@ uint16_t HAL_FLASHEx_OB_GetBank2WRP(void);
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || \
     defined(STM32F439xx) || defined(STM32F469xx) || defined(STM32F479xx)
 #define IS_OB_WRP_SECTOR(SECTOR) \
-  ((((SECTOR)&0xFF000000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFF000000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || \
           STM32F469xx || STM32F479xx */
 
 #if defined(STM32F413xx) || defined(STM32F423xx)
 #define IS_OB_WRP_SECTOR(SECTOR) \
-  ((((SECTOR)&0xFFFF8000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFFFF8000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F413xx || STM32F423xx */
 
 #if defined(STM32F405xx) || defined(STM32F415xx) || defined(STM32F407xx) || \
     defined(STM32F417xx)
 #define IS_OB_WRP_SECTOR(SECTOR) \
-  ((((SECTOR)&0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F405xx || STM32F415xx || STM32F407xx || STM32F417xx */
 
 #if defined(STM32F401xC)
 #define IS_OB_WRP_SECTOR(SECTOR) \
-  ((((SECTOR)&0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F401xC */
 
 #if defined(STM32F410Tx) || defined(STM32F410Cx) || defined(STM32F410Rx)
 #define IS_OB_WRP_SECTOR(SECTOR) \
-  ((((SECTOR)&0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F410Tx || STM32F410Cx || STM32F410Rx */
 
 #if defined(STM32F401xE) || defined(STM32F411xE) || defined(STM32F446xx) || \
     defined(STM32F412Zx) || defined(STM32F412Vx) || defined(STM32F412Rx) || \
     defined(STM32F412Cx)
 #define IS_OB_WRP_SECTOR(SECTOR) \
-  ((((SECTOR)&0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F401xE || STM32F411xE || STM32F446xx || STM32F412Zx || \
           STM32F412Vx || STM32F412Rx || STM32F412Cx */
 
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || \
     defined(STM32F439xx) || defined(STM32F469xx) || defined(STM32F479xx)
 #define IS_OB_PCROP(SECTOR) \
-  ((((SECTOR)&0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || \
           STM32F469xx || STM32F479xx */
 
 #if defined(STM32F413xx) || defined(STM32F423xx)
 #define IS_OB_PCROP(SECTOR) \
-  ((((SECTOR)&0xFFFF8000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFFFF8000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F413xx || STM32F423xx */
 
 #if defined(STM32F401xC)
 #define IS_OB_PCROP(SECTOR) \
-  ((((SECTOR)&0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F401xC */
 
 #if defined(STM32F410Tx) || defined(STM32F410Cx) || defined(STM32F410Rx)
 #define IS_OB_PCROP(SECTOR) \
-  ((((SECTOR)&0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F410Tx || STM32F410Cx || STM32F410Rx */
 
 #if defined(STM32F401xE) || defined(STM32F411xE) || defined(STM32F446xx) || \
     defined(STM32F412Zx) || defined(STM32F412Vx) || defined(STM32F412Rx) || \
     defined(STM32F412Cx)
 #define IS_OB_PCROP(SECTOR) \
-  ((((SECTOR)&0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+  ((((SECTOR) & 0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
 #endif /* STM32F401xE || STM32F411xE || STM32F446xx || STM32F412Zx || \
           STM32F412Vx || STM32F412Rx || STM32F412Cx */
 

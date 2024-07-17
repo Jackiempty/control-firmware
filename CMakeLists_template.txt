@@ -51,7 +51,7 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(${includes} Core/SEGGER_RTT/RTT Core/SEGGER_RTT/Config Drivers/Sensors/ADC/Inc Drivers/Sensors/IMU/Inc Drivers/Configs/Inc Tasks/Inc USB_DEVICE/App USB_DEVICE/Target STM32_USB_Device_Library/Core/Inc STM32_USB_Device_Library/Class/CDC/Inc Drivers/Traction/Inverter/Inc) 
+include_directories(${includes} Core/SEGGER_RTT/RTT Core/SEGGER_RTT/Config Drivers/Sensors/ADC/Inc Drivers/Sensors/IMU/Inc   Drivers/Sensors/GNSS/Inc Drivers/Sensors/WheelSpeed/Inc Drivers/Configs/Inc Tasks/Inc USB_DEVICE/App USB_DEVICE/Target STM32_USB_Device_Library/Core/Inc STM32_USB_Device_Library/Class/CDC/Inc Drivers/Traction/Inverter/Inc Drivers/Sensors/Steering/Inc) 
 
 add_definitions(${defines})
 

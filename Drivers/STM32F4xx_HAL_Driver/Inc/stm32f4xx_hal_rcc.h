@@ -1143,16 +1143,16 @@ typedef struct {
  * @note   The maximum input clock frequency for RTC is 1MHz (when using HSE as
  *         RTC clock source).
  */
-#define __HAL_RCC_RTC_CLKPRESCALER(__RTCCLKSource__)        \
-  (((__RTCCLKSource__)&RCC_BDCR_RTCSEL) == RCC_BDCR_RTCSEL) \
-      ? MODIFY_REG(RCC->CFGR, RCC_CFGR_RTCPRE,              \
-                   ((__RTCCLKSource__)&0xFFFFCFFU))         \
+#define __HAL_RCC_RTC_CLKPRESCALER(__RTCCLKSource__)          \
+  (((__RTCCLKSource__) & RCC_BDCR_RTCSEL) == RCC_BDCR_RTCSEL) \
+      ? MODIFY_REG(RCC->CFGR, RCC_CFGR_RTCPRE,                \
+                   ((__RTCCLKSource__) & 0xFFFFCFFU))         \
       : CLEAR_BIT(RCC->CFGR, RCC_CFGR_RTCPRE)
 
-#define __HAL_RCC_RTC_CONFIG(__RTCCLKSource__)     \
-  do {                                             \
-    __HAL_RCC_RTC_CLKPRESCALER(__RTCCLKSource__);  \
-    RCC->BDCR |= ((__RTCCLKSource__)&0x00000FFFU); \
+#define __HAL_RCC_RTC_CONFIG(__RTCCLKSource__)       \
+  do {                                               \
+    __HAL_RCC_RTC_CLKPRESCALER(__RTCCLKSource__);    \
+    RCC->BDCR |= ((__RTCCLKSource__) & 0x00000FFFU); \
   } while (0U)
 
 /** @brief Macro to get the RTC clock source.
@@ -1420,7 +1420,7 @@ typedef struct {
           : ((((__FLAG__) >> 5U) == 2U)                                   \
                  ? RCC->BDCR                                              \
                  : ((((__FLAG__) >> 5U) == 3U) ? RCC->CSR : RCC->CIR))) & \
-     (1U << ((__FLAG__)&RCC_FLAG_MASK))) != 0U)                           \
+     (1U << ((__FLAG__) & RCC_FLAG_MASK))) != 0U)                         \
        ? 1U                                                               \
        : 0U)
 

@@ -12,8 +12,12 @@ Revision: $Rev: 2023.49$
 #include "config.h"
 #include "events.h"
 #include "fx_api.h"
+#include "gnss.h"
 #include "imu.h"
 #include "inverter.h"
+#include "stm32f4xx_hal.h"
+#include "stm32f4xx_hal_uart.h"
+#include "wheel.h"
 
 TX_THREAD init_thread;
 
@@ -63,6 +67,11 @@ void init_thread_entry(ULONG thread_input) {
   adc_t *bpps_l = open_adc_instance(2);
   adc_t *bpps_r = open_adc_instance(3);
 
+  apps_l->alpha = 0.1;
+  apps_r->alpha = 0.1;
+  bpps_l->alpha = 1.0;
+  bpps_r->alpha = 1.0;
+
   adc_start();
 
   adc_set_buffer_pos(apps_l, 0);
@@ -90,6 +99,37 @@ void init_thread_entry(ULONG thread_input) {
   imu_set_type(imu, IMU_MTI600);
 #endif
 
+#if WHEEL_ENABLE
+  extern TIM_HandleTypeDef htim3;
+  extern TIM_HandleTypeDef htim4;
+
+  wheel_t *wheel_fl = open_wheel_instance(0);
+  wheel_t *wheel_fr = open_wheel_instance(1);
+  wheel_t *wheel_rl = open_wheel_instance(2);
+  wheel_t *wheel_rr = open_wheel_instance(3);
+
+  wheel_fl->hw.handler = &htim3;
+  wheel_fl->hw.channel = TIM_CHANNEL_2;
+  wheel_fl->ticks_pre_rev = 36;
+
+  wheel_fr->hw.handler = &htim3;
+  wheel_fr->hw.channel = TIM_CHANNEL_4;
+  wheel_fr->ticks_pre_rev = 36;
+
+  wheel_rl->hw.handler = &htim4;
+  wheel_rl->hw.channel = TIM_CHANNEL_2;
+  wheel_rl->ticks_pre_rev = 18;
+
+  wheel_rr->hw.handler = &htim4;
+  wheel_rr->hw.channel = TIM_CHANNEL_4;
+  wheel_rr->ticks_pre_rev = 18;
+
+  wheel_init(wheel_fl);
+  wheel_init(wheel_fr);
+  wheel_init(wheel_rl);
+  wheel_init(wheel_rr);
+#endif
+
 #if INVERTER_ENABLE
   inverter_t *inverter_R = open_inverter_instance(0);
   inverter_t *inverter_L = open_inverter_instance(1);
@@ -101,6 +141,13 @@ void init_thread_entry(ULONG thread_input) {
   inverter_L->direction = 0x00;
   inverter_init(inverter_R);
   inverter_init(inverter_L);
+#endif
+
+#if GNSS_ENABLE
+  extern UART_HandleTypeDef huart1;
+  gnss_t *gnss = open_gnss_instance(0);
+  gnss->hw.handler = &huart1;
+  gnss_init(gnss);
 #endif
 
   tx_event_flags_set(&event_flags, EVENT_BIT(EVENT_CONFIG_LOADED), TX_OR);

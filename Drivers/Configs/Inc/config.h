@@ -13,11 +13,20 @@ Revision: $Rev: 2024.12$
 
 #include "jsmn.h"
 
+#define likely(x) __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
+
 #define CONFIG_FILENAME "config.json"
 #define ADC_ENABLE 1
 #define IMU_ENABLE 1
 #define LOGGER_ENABLE 1
 #define INVERTER_ENABLE 1
+#define REGEN_ENABLE 1
+#define STEERING_ENABLE 1
+#define WHEEL_ENABLE 1
+#define GNSS_ENABLE 1
+
+#define LOGGER_FN_PATTERN "ncku-fsae-log-%04d.log"
 
 // Config for ALL peripherals
 

@@ -328,14 +328,15 @@ static unsigned char _ActiveTerminal;
  *        The only exception is SEGGER_RTT_Init(), to make an intentional
  * override possible.
  */
-#define INIT()                                                       \
-  do {                                                               \
-    volatile SEGGER_RTT_CB* pRTTCBInit;                              \
-    pRTTCBInit = (volatile SEGGER_RTT_CB*)((uintptr_t)&_SEGGER_RTT + \
-                                           SEGGER_RTT_UNCACHED_OFF); \
-    if (pRTTCBInit->acID[0] != 'S') {                                \
-      _DoInit();                                                     \
-    }                                                                \
+#define INIT()                                                            \
+  do {                                                                    \
+    volatile SEGGER_RTT_CB* pRTTCBInit;                                   \
+    pRTTCBInit =                                                          \
+        (volatile SEGGER_RTT_CB*)((uintptr_t) &                           \
+                                  _SEGGER_RTT + SEGGER_RTT_UNCACHED_OFF); \
+    if (pRTTCBInit->acID[0] != 'S') {                                     \
+      _DoInit();                                                          \
+    }                                                                     \
   } while (0)
 
 static void _DoInit(void) {

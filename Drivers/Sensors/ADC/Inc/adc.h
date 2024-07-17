@@ -16,12 +16,13 @@ Revision: $Rev: 2024.12$
 
 typedef struct {
   float scale;
-  float offset;
+  uint16_t offset;
 } adc_cal_t;
 
 typedef struct {
-  uint32_t *buffer_ptr;
+  uint16_t *buffer_ptr;
   float value;
+  float alpha;
   adc_cal_t cal;
 } adc_t;
 

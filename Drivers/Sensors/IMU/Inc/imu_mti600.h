@@ -1,6 +1,6 @@
 enum {
-  XCDI_AccelerationHR = 0x61,
-  XCDI_RateOfTurnHR = 0x62,
+  XCDI_AccelerationHR = 0x41,
+  XCDI_RateOfTurnHR = 0x40,
 };
 
 #define XCDI_AccelerationHR_SCALE 0.00390625

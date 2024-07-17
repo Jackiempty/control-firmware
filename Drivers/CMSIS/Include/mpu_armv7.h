@@ -89,8 +89,8 @@
  * \param Region The region to be configured, number 0 to 15.
  * \param BaseAddress The base address for the region.
  */
-#define ARM_MPU_RBAR(Region, BaseAddress)                               \
-  (((BaseAddress)&MPU_RBAR_ADDR_Msk) | ((Region)&MPU_RBAR_REGION_Msk) | \
+#define ARM_MPU_RBAR(Region, BaseAddress)                                   \
+  (((BaseAddress) & MPU_RBAR_ADDR_Msk) | ((Region) & MPU_RBAR_REGION_Msk) | \
    (MPU_RBAR_VALID_Msk))
 
 /**
@@ -182,8 +182,9 @@
  * \param InnerCp Configures the inner cache policy.
  * \param IsShareable Configures the memory as shareable or non-shareable.
  */
-#define ARM_MPU_ACCESS_NORMAL(OuterCp, InnerCp, IsShareable) \
-  ARM_MPU_ACCESS_((4U | (OuterCp)), IsShareable, ((InnerCp)&2U), ((InnerCp)&1U))
+#define ARM_MPU_ACCESS_NORMAL(OuterCp, InnerCp, IsShareable)       \
+  ARM_MPU_ACCESS_((4U | (OuterCp)), IsShareable, ((InnerCp) & 2U), \
+                  ((InnerCp) & 1U))
 
 /**
  * MPU Memory Access Attribute non-cacheable policy.

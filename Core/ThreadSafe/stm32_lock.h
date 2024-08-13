@@ -129,8 +129,7 @@ void Error_Handler(void);
 
 /* Private defines ---------------------------------------------------------*/
 /** Initialize members in instance of <code>LockingData_t</code> structure */
-#define LOCKING_DATA_INIT \
-  { 0, 0 }
+#define LOCKING_DATA_INIT {0, 0}
 
 /* Private typedef ---------------------------------------------------------*/
 typedef struct {
@@ -239,8 +238,7 @@ static inline void stm32_lock_release(LockingData_t *lock) {
 
 /* Private defines ---------------------------------------------------------*/
 /** Initialize members in instance of <code>LockingData_t</code> structure */
-#define LOCKING_DATA_INIT \
-  { {0, 0}, 0 }
+#define LOCKING_DATA_INIT {{0, 0}, 0}
 #define STM32_LOCK_MAX_NESTED_LEVELS 2 /**< Max nesting level of interrupts */
 typedef struct {
   uint32_t basepri[STM32_LOCK_MAX_NESTED_LEVELS];

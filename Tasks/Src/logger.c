@@ -25,7 +25,7 @@ Purpose : Source code for the data logger task. Data acquisition from
               as:
                 [torque][speed][voltge][current]
               each field is 16-bit unsigned/signed integer.
-            0x05 - Steering wheel angle sensor, 16-bit signed integet [angle]
+            0x05 - Steering wheel angle sensor, 16-bit signed integer [angle]
               and 8-bit signed integer [speed]
               as:
                 [angle][speed]

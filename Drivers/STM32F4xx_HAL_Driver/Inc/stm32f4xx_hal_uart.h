@@ -734,7 +734,7 @@ typedef void (*pUART_RxEventCallbackTypeDef)(
  * @retval None
  */
 #define __HAL_UART_ONE_BIT_SAMPLE_DISABLE(__HANDLE__) \
-  ((__HANDLE__)->Instance->CR3 &= (uint16_t) ~((uint16_t)USART_CR3_ONEBIT))
+  ((__HANDLE__)->Instance->CR3 &= (uint16_t)~((uint16_t)USART_CR3_ONEBIT))
 
 /** @brief  Enable UART
  * @param  __HANDLE__ specifies the UART Handle.

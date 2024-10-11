@@ -2995,10 +2995,10 @@ typedef struct {
                                                    LL_ADC_RESOLUTION_12B) *    \
                   (__VREFANALOG_VOLTAGE__)) /                                  \
                  TEMPSENSOR_CAL_VREFANALOG) -                                  \
-       (int32_t) * TEMPSENSOR_CAL1_ADDR)) *                                    \
+       (int32_t)*TEMPSENSOR_CAL1_ADDR)) *                                      \
      (int32_t)(TEMPSENSOR_CAL2_TEMP - TEMPSENSOR_CAL1_TEMP)) /                 \
-    (int32_t)((int32_t) * TEMPSENSOR_CAL2_ADDR -                               \
-              (int32_t) * TEMPSENSOR_CAL1_ADDR)) +                             \
+    (int32_t)((int32_t)*TEMPSENSOR_CAL2_ADDR -                                 \
+              (int32_t)*TEMPSENSOR_CAL1_ADDR)) +                               \
    TEMPSENSOR_CAL1_TEMP)
 #endif
 
@@ -3121,11 +3121,11 @@ __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx,
 
   if (Register == LL_ADC_DMA_REG_REGULAR_DATA) {
     /* Retrieve address of register DR */
-    data_reg_addr = (uint32_t) & (ADCx->DR);
+    data_reg_addr = (uint32_t)&(ADCx->DR);
   } else /* (Register == LL_ADC_DMA_REG_REGULAR_DATA_MULTI) */
   {
     /* Retrieve address of register CDR */
-    data_reg_addr = (uint32_t) & ((__LL_ADC_COMMON_INSTANCE(ADCx))->CDR);
+    data_reg_addr = (uint32_t)&((__LL_ADC_COMMON_INSTANCE(ADCx))->CDR);
   }
 
   return data_reg_addr;
@@ -3134,7 +3134,7 @@ __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx,
 __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx,
                                                uint32_t Register) {
   /* Retrieve address of register DR */
-  return (uint32_t) & (ADCx->DR);
+  return (uint32_t)&(ADCx->DR);
 }
 #endif
 

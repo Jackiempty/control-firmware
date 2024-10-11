@@ -1519,7 +1519,7 @@ void HAL_SD_IRQHandler(SD_HandleTypeDef *hsd) {
           ((context & SD_CONTEXT_READ_MULTIPLE_BLOCK) == 0U)) {
         /* Disable the DMA transfer for transmit request by setting the DMAEN
         bit in the SD DCTRL register */
-        hsd->Instance->DCTRL &= (uint32_t) ~((uint32_t)SDIO_DCTRL_DMAEN);
+        hsd->Instance->DCTRL &= (uint32_t)~((uint32_t)SDIO_DCTRL_DMAEN);
 
         hsd->State = HAL_SD_STATE_READY;
 
@@ -2234,7 +2234,7 @@ HAL_StatusTypeDef HAL_SD_Abort(SD_HandleTypeDef *hsd) {
 
   if ((context & SD_CONTEXT_DMA) != 0U) {
     /* Disable the SD DMA request */
-    hsd->Instance->DCTRL &= (uint32_t) ~((uint32_t)SDIO_DCTRL_DMAEN);
+    hsd->Instance->DCTRL &= (uint32_t)~((uint32_t)SDIO_DCTRL_DMAEN);
 
     /* Abort the SD DMA Tx channel */
     if (((context & SD_CONTEXT_WRITE_SINGLE_BLOCK) != 0U) ||
@@ -2289,7 +2289,7 @@ HAL_StatusTypeDef HAL_SD_Abort_IT(SD_HandleTypeDef *hsd) {
 
   if ((context & SD_CONTEXT_DMA) != 0U) {
     /* Disable the SD DMA request */
-    hsd->Instance->DCTRL &= (uint32_t) ~((uint32_t)SDIO_DCTRL_DMAEN);
+    hsd->Instance->DCTRL &= (uint32_t)~((uint32_t)SDIO_DCTRL_DMAEN);
 
     /* Abort the SD DMA Tx channel */
     if (((context & SD_CONTEXT_WRITE_SINGLE_BLOCK) != 0U) ||
@@ -2386,7 +2386,7 @@ static void SD_DMAReceiveCplt(DMA_HandleTypeDef *hdma) {
 
   /* Disable the DMA transfer for transmit request by setting the DMAEN bit
   in the SD DCTRL register */
-  hsd->Instance->DCTRL &= (uint32_t) ~((uint32_t)SDIO_DCTRL_DMAEN);
+  hsd->Instance->DCTRL &= (uint32_t)~((uint32_t)SDIO_DCTRL_DMAEN);
 
   /* Clear all the static flags */
   __HAL_SD_CLEAR_FLAG(hsd, SDIO_STATIC_DATA_FLAGS);

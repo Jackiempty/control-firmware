@@ -104,7 +104,7 @@ extern "C" {
 #define LL_SYSCFG_PMC_ETHMII \
   (uint32_t)0x00000000 /*!< ETH Media MII interface */
 #define LL_SYSCFG_PMC_ETHRMII \
-  (uint32_t) SYSCFG_PMC_MII_RMII_SEL /*!< ETH Media RMII interface */
+  (uint32_t)SYSCFG_PMC_MII_RMII_SEL /*!< ETH Media RMII interface */
 
 /**
  * @}

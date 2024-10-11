@@ -544,7 +544,7 @@ HAL_StatusTypeDef HAL_PWREx_EnterUnderDriveSTOPMode(uint32_t Regulator,
   tmpreg1 = PWR->CR;
   /* Clear PDDS, LPDS, MRLUDS and LPLUDS bits */
   tmpreg1 &=
-      (uint32_t) ~(PWR_CR_PDDS | PWR_CR_LPDS | PWR_CR_LPUDS | PWR_CR_MRUDS);
+      (uint32_t)~(PWR_CR_PDDS | PWR_CR_LPDS | PWR_CR_LPUDS | PWR_CR_MRUDS);
 
   /* Set LPDS, MRLUDS and LPLUDS bits according to PWR_Regulator value */
   tmpreg1 |= Regulator;
@@ -564,7 +564,7 @@ HAL_StatusTypeDef HAL_PWREx_EnterUnderDriveSTOPMode(uint32_t Regulator,
     __WFE();
   }
   /* Reset SLEEPDEEP bit of Cortex System Control Register */
-  SCB->SCR &= (uint32_t) ~((uint32_t)SCB_SCR_SLEEPDEEP_Msk);
+  SCB->SCR &= (uint32_t)~((uint32_t)SCB_SCR_SLEEPDEEP_Msk);
 
   return HAL_OK;
 }

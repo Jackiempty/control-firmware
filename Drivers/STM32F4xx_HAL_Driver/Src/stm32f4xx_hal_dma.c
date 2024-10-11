@@ -235,10 +235,10 @@ HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *hdma) {
 
   /* Clear CHSEL, MBURST, PBURST, PL, MSIZE, PSIZE, MINC, PINC, CIRC, DIR, CT
    * and DBM bits */
-  tmp &= ((uint32_t) ~(DMA_SxCR_CHSEL | DMA_SxCR_MBURST | DMA_SxCR_PBURST |
-                       DMA_SxCR_PL | DMA_SxCR_MSIZE | DMA_SxCR_PSIZE |
-                       DMA_SxCR_MINC | DMA_SxCR_PINC | DMA_SxCR_CIRC |
-                       DMA_SxCR_DIR | DMA_SxCR_CT | DMA_SxCR_DBM));
+  tmp &= ((uint32_t)~(DMA_SxCR_CHSEL | DMA_SxCR_MBURST | DMA_SxCR_PBURST |
+                      DMA_SxCR_PL | DMA_SxCR_MSIZE | DMA_SxCR_PSIZE |
+                      DMA_SxCR_MINC | DMA_SxCR_PINC | DMA_SxCR_CIRC |
+                      DMA_SxCR_DIR | DMA_SxCR_CT | DMA_SxCR_DBM));
 
   /* Prepare the DMA Stream configuration */
   tmp |= hdma->Init.Channel | hdma->Init.Direction | hdma->Init.PeriphInc |
@@ -259,7 +259,7 @@ HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *hdma) {
   tmp = hdma->Instance->FCR;
 
   /* Clear Direct mode and FIFO threshold bits */
-  tmp &= (uint32_t) ~(DMA_SxFCR_DMDIS | DMA_SxFCR_FTH);
+  tmp &= (uint32_t)~(DMA_SxFCR_DMDIS | DMA_SxFCR_FTH);
 
   /* Prepare the DMA Stream FIFO configuration */
   tmp |= hdma->Init.FIFOMode;

@@ -533,10 +533,10 @@ typedef struct {
 #endif             /* RCC_DCKCFGR_SAI2SRC */
 #if defined(RCC_DCKCFGR_SAI1ASRC)
 #if defined(RCC_SAI1A_PLLSOURCE_SUPPORT)
-#define LL_RCC_SAI1_A_CLKSOURCE_PLLI2S \
-  (uint32_t)(                          \
-      RCC_DCKCFGR_SAI1ASRC |           \
-      0x00000000U) /*!< PLLI2S clock used as SAI1 block A clock source */
+#define LL_RCC_SAI1_A_CLKSOURCE_PLLI2S                                        \
+  (uint32_t)(RCC_DCKCFGR_SAI1ASRC |                                           \
+             0x00000000U) /*!< PLLI2S clock used as SAI1 block A clock source \
+                           */
 #define LL_RCC_SAI1_A_CLKSOURCE_PIN     \
   (uint32_t)(RCC_DCKCFGR_SAI1ASRC |     \
              (RCC_DCKCFGR_SAI1ASRC_0 >> \
@@ -550,27 +550,26 @@ typedef struct {
              (RCC_DCKCFGR_SAI1ASRC >>  \
               16)) /*!< PLL Main clock used as SAI1 block A clock source */
 #else
-#define LL_RCC_SAI1_A_CLKSOURCE_PLLSAI \
-  (uint32_t)(                          \
-      RCC_DCKCFGR_SAI1ASRC |           \
-      0x00000000U) /*!< PLLSAI clock used as SAI1 block A clock source */
+#define LL_RCC_SAI1_A_CLKSOURCE_PLLSAI                                        \
+  (uint32_t)(RCC_DCKCFGR_SAI1ASRC |                                           \
+             0x00000000U) /*!< PLLSAI clock used as SAI1 block A clock source \
+                           */
 #define LL_RCC_SAI1_A_CLKSOURCE_PLLI2S  \
   (uint32_t)(RCC_DCKCFGR_SAI1ASRC |     \
              (RCC_DCKCFGR_SAI1ASRC_0 >> \
               16)) /*!< PLLI2S clock used as SAI1 block A clock source */
-#define LL_RCC_SAI1_A_CLKSOURCE_PIN \
-  (uint32_t)(                       \
-      RCC_DCKCFGR_SAI1ASRC |        \
-      (RCC_DCKCFGR_SAI1ASRC_1 >>    \
-       16)) /*!< External pin clock used as SAI1 block A clock source */
-#endif      /* RCC_SAI1A_PLLSOURCE_SUPPORT */
-#endif      /* RCC_DCKCFGR_SAI1ASRC */
+#define LL_RCC_SAI1_A_CLKSOURCE_PIN                                          \
+  (uint32_t)(RCC_DCKCFGR_SAI1ASRC |                                          \
+             (RCC_DCKCFGR_SAI1ASRC_1 >> 16)) /*!< External pin clock used as \
+                                                SAI1 block A clock source */
+#endif                                       /* RCC_SAI1A_PLLSOURCE_SUPPORT */
+#endif                                       /* RCC_DCKCFGR_SAI1ASRC */
 #if defined(RCC_DCKCFGR_SAI1BSRC)
 #if defined(RCC_SAI1B_PLLSOURCE_SUPPORT)
-#define LL_RCC_SAI1_B_CLKSOURCE_PLLI2S \
-  (uint32_t)(                          \
-      RCC_DCKCFGR_SAI1BSRC |           \
-      0x00000000U) /*!< PLLI2S clock used as SAI1 block B clock source */
+#define LL_RCC_SAI1_B_CLKSOURCE_PLLI2S                                        \
+  (uint32_t)(RCC_DCKCFGR_SAI1BSRC |                                           \
+             0x00000000U) /*!< PLLI2S clock used as SAI1 block B clock source \
+                           */
 #define LL_RCC_SAI1_B_CLKSOURCE_PIN     \
   (uint32_t)(RCC_DCKCFGR_SAI1BSRC |     \
              (RCC_DCKCFGR_SAI1BSRC_0 >> \
@@ -584,21 +583,20 @@ typedef struct {
              (RCC_DCKCFGR_SAI1BSRC >>  \
               16)) /*!< PLL Main clock used as SAI1 block B clock source */
 #else
-#define LL_RCC_SAI1_B_CLKSOURCE_PLLSAI \
-  (uint32_t)(                          \
-      RCC_DCKCFGR_SAI1BSRC |           \
-      0x00000000U) /*!< PLLSAI clock used as SAI1 block B clock source */
+#define LL_RCC_SAI1_B_CLKSOURCE_PLLSAI                                        \
+  (uint32_t)(RCC_DCKCFGR_SAI1BSRC |                                           \
+             0x00000000U) /*!< PLLSAI clock used as SAI1 block B clock source \
+                           */
 #define LL_RCC_SAI1_B_CLKSOURCE_PLLI2S  \
   (uint32_t)(RCC_DCKCFGR_SAI1BSRC |     \
              (RCC_DCKCFGR_SAI1BSRC_0 >> \
               16)) /*!< PLLI2S clock used as SAI1 block B clock source */
-#define LL_RCC_SAI1_B_CLKSOURCE_PIN \
-  (uint32_t)(                       \
-      RCC_DCKCFGR_SAI1BSRC |        \
-      (RCC_DCKCFGR_SAI1BSRC_1 >>    \
-       16)) /*!< External pin clock used as SAI1 block B clock source */
-#endif      /* RCC_SAI1B_PLLSOURCE_SUPPORT */
-#endif      /* RCC_DCKCFGR_SAI1BSRC */
+#define LL_RCC_SAI1_B_CLKSOURCE_PIN                                          \
+  (uint32_t)(RCC_DCKCFGR_SAI1BSRC |                                          \
+             (RCC_DCKCFGR_SAI1BSRC_1 >> 16)) /*!< External pin clock used as \
+                                                SAI1 block B clock source */
+#endif                                       /* RCC_SAI1B_PLLSOURCE_SUPPORT */
+#endif                                       /* RCC_DCKCFGR_SAI1BSRC */
 /**
  * @}
  */
